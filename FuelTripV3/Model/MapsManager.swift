@@ -70,6 +70,7 @@ struct MapsManager {
                 return Double(numberOfGasStops) * Double(pricePerFill)
             }
             let model = MapsModel(lengthInMeters: distance, distanceMiles: distanceMiles, costOfTrip: costOfTrip, numberOfGasStops: numberOfGasStops)
+            print(model)
             return model
             
         } catch {

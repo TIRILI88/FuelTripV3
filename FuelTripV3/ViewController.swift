@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MapsManagerDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var destinationTextField: UITextField!
@@ -30,6 +30,8 @@ class ViewController: UIViewController, MapsManagerDelegate {
         setImagesAndLabel()
         mapView.delegate = self
         destinationTextField.delegate = self
+        locationManager.delegate = self
+        mapsManager.delegate = self
         
         locationManager.requestWhenInUseAuthorization()
         checkLocationAuthorization()
@@ -38,7 +40,6 @@ class ViewController: UIViewController, MapsManagerDelegate {
         view.addGestureRecognizer(tap)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
     
     func setImagesAndLabel() {
@@ -48,15 +49,6 @@ class ViewController: UIViewController, MapsManagerDelegate {
         //        lblGasStopLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
         //        lblMoneyForGasLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
         
-    }
-    
-    func fetchData(_ mapsManager: MapsManager, model: MapsModel) {
-        DispatchQueue.main.async {
-            self.lblmilesLabel.text = " \(String(format: "%.0f", model.distanceMiles)) Miles"
-            self.lblGasStopLabel.text = "\(String(format: "%.0f", model.numberOfGasStops)) Stops"
-            self.lblMoneyForGasLabel.text = "$\(String(format: "%.2f", model.costOfTrip))"
-            
-        }
     }
     
     func setupLocationManager() {
@@ -109,7 +101,7 @@ class ViewController: UIViewController, MapsManagerDelegate {
                 let lat = placemarks.location?.coordinate.latitude
                 let lon = placemarks.location?.coordinate.longitude
                 let destinationLocation = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
-                print("getCoordinateFunc: lat: \(lat!) & lon: \(lon!)")
+                //print("getCoordinateFunc: lat: \(lat!) & lon: \(lon!)")
                 self.getDirections(with: destinationLocation )
             }
         }
@@ -118,7 +110,7 @@ class ViewController: UIViewController, MapsManagerDelegate {
     func createDirectionRequest(from coordinate: CLLocationCoordinate2D, to destintationCoordinate: CLLocationCoordinate2D) -> MKDirections.Request {
         let startingLocation                = MKPlacemark(coordinate: coordinate)
         let destination                     = MKPlacemark(coordinate: destintationCoordinate)
-        print("Create DirectionRequ with destination: \(destination)" )
+        //print("Create DirectionRequ with destination: \(destination)" )
         
         let request                         = MKDirections.Request()
         request.source                      = MKMapItem(placemark: startingLocation)
@@ -157,10 +149,6 @@ class ViewController: UIViewController, MapsManagerDelegate {
         
     }
     
-    func didFailWithError(error: Error) {
-        print(error)
-    }
-    
     func performAction() {
         if destinationTextField.text != nil {
             locationManager.requestLocation()
@@ -175,34 +163,56 @@ class ViewController: UIViewController, MapsManagerDelegate {
     
 }
 
+//MARK: - MapsManagerDelegate
+
+extension ViewController: MapsManagerDelegate {
+    
+    func fetchData(_ mapsManager: MapsManager, model: MapsModel) {
+        DispatchQueue.main.async {
+            self.lblmilesLabel.text = " \(String(format: "%.0f", model.distanceMiles)) Miles"
+            self.lblGasStopLabel.text = "\(String(model.numberOfGasStops)) Stops"
+            self.lblMoneyForGasLabel.text = "$\(String(format: "%.2f", model.costOfTrip))"
+        }
+    }
+
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+
+}
+
 
 //MARK: - CoreLocation Delegates
 
 extension ViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation : CLLocation = locations[0] as CLLocation
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
-            if (error != nil) {
-                print("error reverseGeoCode \(String(describing: error))")
+        if locationManager.location != nil {
+            
+            let userLocation : CLLocation = locations[0] as CLLocation
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+                if (error != nil) {
+                    print("error reverseGeoCode \(String(describing: error))")
+                }
+                let placemark = placemarks! as [CLPlacemark]
+                if placemark.count > 0 {
+                    let origin = String((placemark.first?.locality!)!)
+                    self.mapsManager.fetchDistance(origin)
+                    
+                }
             }
-            let placemark = placemarks! as [CLPlacemark]
-            if placemark.count > 0 {
-                let origin = String((placemark.first?.locality!)!)
-                self.mapsManager.fetchDistance(origin)
-                
-            }
+            
+            guard let location = locations.last else { return }
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
+            
+        } else {
+            print("didUpdateLocation cannot be excuted")
         }
-        
-        guard let location = locations.last else { return }
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        mapView.setRegion(region, animated: true)
-        
-        
     }
-
+    
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
@@ -248,6 +258,7 @@ extension ViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if destinationTextField.text != "" {
+            MapsManager.destinationName = destinationTextField.text!
             destinationTextField.placeholder = destinationTextField.text
         }
     }
