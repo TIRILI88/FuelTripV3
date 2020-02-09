@@ -54,6 +54,9 @@
                                         <rect key="frame" x="373" y="27" width="12" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Path 114"/>
+                                        <connections>
+                                            <action selector="goButtonPressed:" destination="ScA-GP-zhg" eventType="touchUpInside" id="yFj-zs-HjV"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
