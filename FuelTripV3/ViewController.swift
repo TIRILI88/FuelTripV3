@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MapsManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var destinationTextField: UITextField!
@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnSettingsButton: UIButton!
     
     let locationManager = CLLocationManager()
+    var mapsManager = MapsManager()
     let regionInMeters: Double = 10000
     
     
@@ -46,10 +47,16 @@ class ViewController: UIViewController {
         //        lblmilesLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
         //        lblGasStopLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
         //        lblMoneyForGasLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
-        lblmilesLabel.text = "1226 Miles"
-        lblGasStopLabel.text = "4 Stops"
-        lblMoneyForGasLabel.text = "$100.76"
-        destinationTextField.text = "Los Angeles"
+        
+    }
+    
+    func fetchData(_ mapsManager: MapsManager, model: MapsModel) {
+        DispatchQueue.main.async {
+            self.lblmilesLabel.text = " \(String(format: "%.0f", model.distanceMiles)) Miles"
+            self.lblGasStopLabel.text = "\(String(format: "%.0f", model.numberOfGasStops)) Stops"
+            self.lblMoneyForGasLabel.text = "$\(String(format: "%.2f", model.costOfTrip))"
+            
+        }
     }
     
     func setupLocationManager() {
@@ -150,11 +157,17 @@ class ViewController: UIViewController {
         
     }
     
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+    
     func performAction() {
-         if destinationTextField.text != nil {
-             getCoordinate(destinationTextField.text!)
-         }
-     }
+        if destinationTextField.text != nil {
+            locationManager.requestLocation()
+            getCoordinate(destinationTextField.text!)
+            
+        }
+    }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
         performAction()
@@ -168,11 +181,28 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation : CLLocation = locations[0] as CLLocation
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+            if (error != nil) {
+                print("error reverseGeoCode \(String(describing: error))")
+            }
+            let placemark = placemarks! as [CLPlacemark]
+            if placemark.count > 0 {
+                let origin = String((placemark.first?.locality!)!)
+                self.mapsManager.fetchDistance(origin)
+                
+            }
+        }
+        
         guard let location = locations.last else { return }
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
         mapView.setRegion(region, animated: true)
+        
+        
     }
+
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
