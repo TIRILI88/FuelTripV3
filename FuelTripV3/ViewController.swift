@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setImagesAndLabel()
         mapView.delegate = self
         destinationTextField.delegate = self
@@ -36,18 +37,33 @@ class ViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         checkLocationAuthorization()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func setImagesAndLabel() {
         btnGoButton.imageEdgeInsets = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
         btnSettingsButton.imageEdgeInsets = UIEdgeInsets(top: 22, left: 27, bottom: 22, right: 27)
-        //        lblmilesLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
-        //        lblGasStopLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
-        //        lblMoneyForGasLabel.backgroundColor = UIColor(patternImage: UIImage(named: "Rectangle 6.png")!)
+        lblmilesLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
+        lblGasStopLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
+        lblMoneyForGasLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
+        lblmilesLabel.layer.cornerRadius = 5.0
+        lblGasStopLabel.layer.cornerRadius = 5.0
+        lblMoneyForGasLabel.layer.cornerRadius = 5.0
+        destinationTextField.layer.cornerRadius = 5.0
+        lblmilesLabel.layer.masksToBounds = true
+        lblGasStopLabel.layer.masksToBounds = true
+        lblMoneyForGasLabel.layer.masksToBounds = true
+        destinationTextField.layer.masksToBounds = true
+        lblmilesLabel.layer.borderColor = UIColor.gray.cgColor
+        lblGasStopLabel.layer.borderColor = UIColor.gray.cgColor
+        lblMoneyForGasLabel.layer.borderColor = UIColor.gray.cgColor
+        destinationTextField.layer.borderColor = UIColor.gray.cgColor
+        destinationTextField.layer.borderWidth = 1.0
+        lblmilesLabel.layer.borderWidth = 1.0
+        lblGasStopLabel.layer.borderWidth = 1.0
+        lblMoneyForGasLabel.layer.borderWidth = 1.0
+        lblmilesLabel.text = "Distance"
+        lblGasStopLabel.text = "Stops for Gas"
+        lblMoneyForGasLabel.text = "$"
         
     }
     
@@ -153,7 +169,7 @@ class ViewController: UIViewController {
         if destinationTextField.text != nil {
             locationManager.requestLocation()
             getCoordinate(destinationTextField.text!)
-            
+            textFieldDidEndEditing(destinationTextField)
         }
     }
     
@@ -169,16 +185,22 @@ extension ViewController: MapsManagerDelegate {
     
     func fetchData(_ mapsManager: MapsManager, model: MapsModel) {
         DispatchQueue.main.async {
-            self.lblmilesLabel.text = " \(String(format: "%.0f", model.distanceMiles)) Miles"
-            self.lblGasStopLabel.text = "\(String(model.numberOfGasStops)) Stops"
-            self.lblMoneyForGasLabel.text = "$\(String(format: "%.2f", model.costOfTrip))"
+            if self.lblmilesLabel.text != "" {
+                self.lblGasStopLabel.isHidden = false
+                self.lblmilesLabel.isHidden = false
+                self.lblMoneyForGasLabel.isHidden = false
+                
+                self.lblmilesLabel.text = " \(String(format: "%.0f", model.distanceMiles)) Miles"
+                self.lblGasStopLabel.text = "\(String(model.numberOfGasStops)) Stops"
+                self.lblMoneyForGasLabel.text = "$\(String(format: "%.2f", model.costOfTrip))"
+                
+            }
         }
     }
-
+    
     func didFailWithError(error: Error) {
         print(error)
     }
-
 }
 
 
@@ -238,7 +260,7 @@ extension ViewController: MKMapViewDelegate {
     
 }
 
-//MARK: - TextField Delegates
+//MARK: - TextFieldDelegates
 extension ViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -248,10 +270,9 @@ extension ViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text != "" {
+        if destinationTextField.text != "" {
             return true
         } else {
-            textField.text = ""
             return false
         }
     }
@@ -260,24 +281,6 @@ extension ViewController: UITextFieldDelegate {
         if destinationTextField.text != "" {
             MapsManager.destinationName = destinationTextField.text!
             destinationTextField.placeholder = destinationTextField.text
-        }
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
         }
     }
     
