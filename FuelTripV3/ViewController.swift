@@ -39,33 +39,7 @@ class ViewController: UIViewController {
         
     }
     
-    func setImagesAndLabel() {
-        btnGoButton.imageEdgeInsets = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
-        btnSettingsButton.imageEdgeInsets = UIEdgeInsets(top: 22, left: 27, bottom: 22, right: 27)
-        lblmilesLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
-        lblGasStopLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
-        lblMoneyForGasLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
-        lblmilesLabel.layer.cornerRadius = 5.0
-        lblGasStopLabel.layer.cornerRadius = 5.0
-        lblMoneyForGasLabel.layer.cornerRadius = 5.0
-        destinationTextField.layer.cornerRadius = 5.0
-        lblmilesLabel.layer.masksToBounds = true
-        lblGasStopLabel.layer.masksToBounds = true
-        lblMoneyForGasLabel.layer.masksToBounds = true
-        destinationTextField.layer.masksToBounds = true
-        lblmilesLabel.layer.borderColor = UIColor.gray.cgColor
-        lblGasStopLabel.layer.borderColor = UIColor.gray.cgColor
-        lblMoneyForGasLabel.layer.borderColor = UIColor.gray.cgColor
-        destinationTextField.layer.borderColor = UIColor.gray.cgColor
-        destinationTextField.layer.borderWidth = 1.0
-        lblmilesLabel.layer.borderWidth = 1.0
-        lblGasStopLabel.layer.borderWidth = 1.0
-        lblMoneyForGasLabel.layer.borderWidth = 1.0
-        lblmilesLabel.text = "Distance"
-        lblGasStopLabel.text = "Stops for Gas"
-        lblMoneyForGasLabel.text = "$"
-        
-    }
+
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -171,6 +145,33 @@ class ViewController: UIViewController {
             getCoordinate(destinationTextField.text!)
             textFieldDidEndEditing(destinationTextField)
         }
+    }
+    
+    func setImagesAndLabel() {
+        btnGoButton.imageEdgeInsets = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
+        btnSettingsButton.imageEdgeInsets = UIEdgeInsets(top: 22, left: 27, bottom: 22, right: 27)
+        lblmilesLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
+        lblGasStopLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
+        lblMoneyForGasLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
+        lblmilesLabel.layer.cornerRadius = 5.0
+        lblGasStopLabel.layer.cornerRadius = 5.0
+        lblMoneyForGasLabel.layer.cornerRadius = 5.0
+        destinationTextField.layer.cornerRadius = 5.0
+        lblmilesLabel.layer.masksToBounds = true
+        lblGasStopLabel.layer.masksToBounds = true
+        lblMoneyForGasLabel.layer.masksToBounds = true
+        destinationTextField.layer.masksToBounds = true
+        lblmilesLabel.layer.borderColor = UIColor.gray.cgColor
+        lblGasStopLabel.layer.borderColor = UIColor.gray.cgColor
+        lblMoneyForGasLabel.layer.borderColor = UIColor.gray.cgColor
+        destinationTextField.layer.borderColor = UIColor.gray.cgColor
+        destinationTextField.layer.borderWidth = 1.0
+        lblmilesLabel.layer.borderWidth = 1.0
+        lblGasStopLabel.layer.borderWidth = 1.0
+        lblMoneyForGasLabel.layer.borderWidth = 1.0
+        lblmilesLabel.text = "Distance"
+        lblGasStopLabel.text = "Stops for Gas"
+        lblMoneyForGasLabel.text = "$"
     }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {

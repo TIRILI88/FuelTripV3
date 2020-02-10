@@ -32,7 +32,6 @@ struct MapsManager {
 
     func fetchDistance(_ origin: String) {
         let urlString = "\(K.URLfirst)\(origin)&destinations=\(MapsManager.destinationName)&key=\(K.apiKey)"
-        print(urlString)
         performRequest(with: urlString)
     }
     
@@ -71,7 +70,6 @@ struct MapsManager {
                 return Double(numberOfGasStops) * Double(pricePerFill)
             }
             let model = MapsModel(lengthInMeters: distance, distanceMiles: distanceMiles, costOfTrip: costOfTrip, numberOfGasStops: numberOfGasStops)
-            print(model)
             return model
             
         } catch {
