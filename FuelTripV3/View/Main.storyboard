@@ -85,11 +85,6 @@
                                     <constraint firstItem="kHb-8T-2uo" firstAttribute="leading" secondItem="JUL-sU-hoZ" secondAttribute="trailing" constant="21" id="rAL-9D-c2M"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-04-NbX">
-                                <rect key="frame" x="364" y="162" width="30" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Symbol 147 – 2"/>
-                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qng-Ut-MgD">
                                 <rect key="frame" x="131.5" y="831" width="151" height="31"/>
                                 <segments>
@@ -107,6 +102,15 @@
                                 <connections>
                                     <action selector="goToAppleMapsPressed:" destination="ScA-GP-zhg" eventType="touchUpInside" id="vwh-7e-8tI"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-04-NbX">
+                                <rect key="frame" x="369" y="163" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="Symbol 147 – 2">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18" scale="large"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
