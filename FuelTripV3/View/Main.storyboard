@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="NTL-Sg-hAH">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTL-Sg-hAH">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0s-zi-sgi">
@@ -32,7 +32,7 @@
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUL-sU-hoZ">
                                         <rect key="frame" x="20" y="78" width="110" height="42"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="n6w-Dl-9yK"/>
                                         </constraints>
@@ -42,7 +42,7 @@
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GasStops" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHb-8T-2uo">
                                         <rect key="frame" x="151" y="78" width="112" height="42"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="5v7-Z5-VQF"/>
                                         </constraints>
@@ -50,17 +50,9 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhr-PO-ghF">
-                                        <rect key="frame" x="373" y="34" width="12" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Path 114"/>
-                                        <connections>
-                                            <action selector="goButtonPressed:" destination="ScA-GP-zhg" eventType="touchUpInside" id="yFj-zs-HjV"/>
-                                        </connections>
-                                    </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7r-W9-QPC">
                                         <rect key="frame" x="283" y="78" width="111" height="42"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="111" id="8de-ZG-c8q"/>
                                             <constraint firstAttribute="height" constant="42" id="hQx-in-EQF"/>
@@ -69,6 +61,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhr-PO-ghF">
+                                        <rect key="frame" x="359" y="31" width="26" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="arrowtriangle.right" catalog="system"/>
+                                        <connections>
+                                            <action selector="goButtonPressed:" destination="ScA-GP-zhg" eventType="touchUpInside" id="yFj-zs-HjV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="JUL-sU-hoZ" firstAttribute="leading" secondItem="yu8-df-6zP" secondAttribute="leading" id="4Yd-c0-ry9"/>
@@ -89,22 +90,44 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Symbol 147 – 2"/>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qng-Ut-MgD">
+                                <rect key="frame" x="131.5" y="831" width="151" height="31"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="valueSegmentChanged:" destination="ScA-GP-zhg" eventType="valueChanged" id="c5g-X5-aDa"/>
+                                </connections>
+                            </segmentedControl>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLF-lr-yZl">
+                                <rect key="frame" x="20" y="155" width="35" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Replay_Reverse-512"/>
+                                <connections>
+                                    <action selector="goToAppleMapsPressed:" destination="ScA-GP-zhg" eventType="touchUpInside" id="vwh-7e-8tI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Ewq-cT-Bvs" firstAttribute="bottom" secondItem="Qng-Ut-MgD" secondAttribute="bottom" constant="1" id="FwS-o6-JKh"/>
                             <constraint firstItem="Ewq-cT-Bvs" firstAttribute="bottom" secondItem="D0s-zi-sgi" secondAttribute="bottom" constant="736" id="Jum-oI-6YY"/>
                             <constraint firstItem="D0s-zi-sgi" firstAttribute="top" secondItem="K5h-mM-Qfy" secondAttribute="topMargin" constant="-20" id="PFP-6J-Joh"/>
                             <constraint firstItem="NTL-Sg-hAH" firstAttribute="leading" secondItem="Ewq-cT-Bvs" secondAttribute="leading" id="S4u-60-1J3"/>
                             <constraint firstItem="D0s-zi-sgi" firstAttribute="leading" secondItem="NTL-Sg-hAH" secondAttribute="leading" id="Suh-lB-7dV"/>
                             <constraint firstItem="D0s-zi-sgi" firstAttribute="trailing" secondItem="NTL-Sg-hAH" secondAttribute="trailing" id="UMM-6O-zKB"/>
+                            <constraint firstItem="Qng-Ut-MgD" firstAttribute="centerX" secondItem="K5h-mM-Qfy" secondAttribute="centerX" id="VUE-lc-WK3"/>
                             <constraint firstAttribute="bottom" secondItem="NTL-Sg-hAH" secondAttribute="bottom" id="iix-nv-fED"/>
                             <constraint firstItem="NTL-Sg-hAH" firstAttribute="top" secondItem="K5h-mM-Qfy" secondAttribute="top" id="pYB-V6-q0X"/>
+                            <constraint firstItem="Qng-Ut-MgD" firstAttribute="top" secondItem="D0s-zi-sgi" secondAttribute="bottom" constant="705" id="rRi-Sh-kPo"/>
                             <constraint firstItem="NTL-Sg-hAH" firstAttribute="trailing" secondItem="Ewq-cT-Bvs" secondAttribute="trailing" id="wqE-hb-Kre"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ewq-cT-Bvs"/>
                     </view>
                     <connections>
                         <outlet property="btnGoButton" destination="Fhr-PO-ghF" id="4FY-I3-vjo"/>
+                        <outlet property="btnGoToAppleMapsButton" destination="NLF-lr-yZl" id="AO5-sj-0ZB"/>
                         <outlet property="btnSettingsButton" destination="uPp-04-NbX" id="1Am-Y1-wuU"/>
                         <outlet property="destinationTextField" destination="yu8-df-6zP" id="Niw-MI-gS4"/>
                         <outlet property="lblGasStopLabel" destination="kHb-8T-2uo" id="avw-aV-akO"/>
@@ -119,8 +142,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Path 114" width="7" height="8.5"/>
         <image name="Rectangle 1" width="118.5" height="16.5"/>
+        <image name="Replay_Reverse-512" width="512" height="512"/>
         <image name="Symbol 147 – 2" width="10.5" height="11"/>
+        <image name="arrowtriangle.right" catalog="system" width="64" height="56"/>
     </resources>
 </document>

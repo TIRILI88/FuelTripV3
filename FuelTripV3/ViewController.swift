@@ -19,10 +19,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblMoneyForGasLabel: UILabel!
     @IBOutlet weak var btnGoButton: UIButton!
     @IBOutlet weak var btnSettingsButton: UIButton!
+    @IBOutlet weak var btnGoToAppleMapsButton: UIButton!
     
     let locationManager = CLLocationManager()
-    var mapsManager = MapsManager()
     let regionInMeters: Double = 10000
+    var mapsManager = MapsManager()
+    var userSource : CLLocationCoordinate2D?
+    var userDestination : CLLocationCoordinate2D?
+    var userSourceString: String?
+    var userDestinationString: String?
     
     
     override func viewDidLoad() {
@@ -39,7 +44,14 @@ class ViewController: UIViewController {
         
     }
     
-
+    func performAction() {
+           if destinationTextField.text != nil {
+               locationManager.requestLocation()
+               getCoordinate(destinationTextField.text!)
+               textFieldDidEndEditing(destinationTextField)
+           }
+       }
+//MARK: - LocationManager Functions
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -80,6 +92,8 @@ class ViewController: UIViewController {
             break
         }
     }
+
+//MARK: - Create Directions Functions
     
     func getCoordinate(_ addressString: String) {
         let geoCoder = CLGeocoder()
@@ -92,6 +106,7 @@ class ViewController: UIViewController {
                 let lon = placemarks.location?.coordinate.longitude
                 let destinationLocation = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
                 //print("getCoordinateFunc: lat: \(lat!) & lon: \(lon!)")
+                self.userDestination = destinationLocation
                 self.getDirections(with: destinationLocation )
             }
         }
@@ -139,20 +154,12 @@ class ViewController: UIViewController {
         
     }
     
-    func performAction() {
-        if destinationTextField.text != nil {
-            locationManager.requestLocation()
-            getCoordinate(destinationTextField.text!)
-            textFieldDidEndEditing(destinationTextField)
-        }
-    }
+   
+    
+//MARK: - Set UIView Elements
     
     func setImagesAndLabel() {
-        btnGoButton.imageEdgeInsets = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
         btnSettingsButton.imageEdgeInsets = UIEdgeInsets(top: 22, left: 27, bottom: 22, right: 27)
-        lblmilesLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
-        lblGasStopLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
-        lblMoneyForGasLabel.backgroundColor = UIColor(white: 1, alpha: 0.85)
         lblmilesLabel.layer.cornerRadius = 5.0
         lblGasStopLabel.layer.cornerRadius = 5.0
         lblMoneyForGasLabel.layer.cornerRadius = 5.0
@@ -174,6 +181,25 @@ class ViewController: UIViewController {
         lblMoneyForGasLabel.text = "$"
     }
     
+//MARK: - IBActions
+    
+    
+    @IBAction func valueSegmentChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            mapView.mapType = MKMapType.standard
+        } else {
+            mapView.mapType = MKMapType.hybrid
+        }
+    
+    }
+    
+    
+    @IBAction func goToAppleMapsPressed(_ sender: UIButton) {
+        openMapsWithDirection()
+        
+    }
+    
+    
     @IBAction func goButtonPressed(_ sender: UIButton) {
         performAction()
     }
@@ -190,7 +216,7 @@ extension ViewController: MapsManagerDelegate {
                 self.lblGasStopLabel.isHidden = false
                 self.lblmilesLabel.isHidden = false
                 self.lblMoneyForGasLabel.isHidden = false
-                
+                self.btnGoToAppleMapsButton.isHidden = false
                 self.lblmilesLabel.text = " \(String(format: "%.0f", model.distanceMiles)) Miles"
                 self.lblGasStopLabel.text = "\(String(model.numberOfGasStops)) Stops"
                 self.lblMoneyForGasLabel.text = "$\(String(format: "%.2f", model.costOfTrip))"
@@ -221,6 +247,7 @@ extension ViewController: CLLocationManagerDelegate {
                 let placemark = placemarks! as [CLPlacemark]
                 if placemark.count > 0 {
                     let origin = String((placemark.first?.locality!)!)
+                    self.userSourceString = origin
                     self.mapsManager.fetchDistance(origin)
                     
                 }
@@ -229,6 +256,7 @@ extension ViewController: CLLocationManagerDelegate {
             guard let location = locations.last else { return }
             let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            self.userSource = center
             mapView.setRegion(region, animated: true)
             
         } else {
@@ -259,6 +287,20 @@ extension ViewController: MKMapViewDelegate {
         return renderer
     }
     
+    func openMapsWithDirection() {
+        
+        
+        let source = MKMapItem(placemark: MKPlacemark(coordinate: userSource!))
+        source.name = userSourceString
+        
+
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: userDestination!))
+        destination.name = userDestinationString
+         
+        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+        
+    }
+    
 }
 
 //MARK: - TextFieldDelegates
@@ -282,6 +324,7 @@ extension ViewController: UITextFieldDelegate {
         if destinationTextField.text != "" {
             MapsManager.destinationName = destinationTextField.text!
             destinationTextField.placeholder = destinationTextField.text
+            userDestinationString = destinationTextField.text
         }
     }
     
