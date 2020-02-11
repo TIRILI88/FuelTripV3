@@ -144,6 +144,21 @@
             </objects>
             <point key="canvasLocation" x="-300" y="-154.01785714285714"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="JA9-r3-GlA">
+            <objects>
+                <viewController id="g53-Iq-Im2" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nT0-6Y-K5Z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="iVc-qT-xNU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xj5-G5-Dsd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="445" y="-149"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Rectangle 1" width="118.5" height="16.5"/>
