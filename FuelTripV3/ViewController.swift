@@ -51,6 +51,14 @@ class ViewController: UIViewController {
                textFieldDidEndEditing(destinationTextField)
            }
        }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToSettings" {
+            if destinationTextField.text == "" {
+                destinationTextField.text = "San Francisco"
+            }
+        }
+    }
 //MARK: - LocationManager Functions
     
     func setupLocationManager() {

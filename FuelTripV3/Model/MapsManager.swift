@@ -17,18 +17,33 @@ struct MapsManager {
     
     var delegate: MapsManagerDelegate?
     static var destinationName = ""
-    static var fuelInTank : Int = 10         //Average consumption per Gasstop (in  Gallon)
-    static var fuelPrice : Double = 2.29     //Input of actual Gasprice on a later state
-    static var milesPerGallon : Int = 32     //milesPerGallon
+    
+    static var pricePerGallon: String = {
+        UserDefaults.standard.register(defaults: [K.KEYppG : "2.29"])
+        return UserDefaults.standard.string(forKey: K.KEYppG)!
+    }()
+    
+    static var gallonPerFilling : String = {
+        UserDefaults.standard.register(defaults: [K.KEYgpF : "10"])
+        return UserDefaults.standard.string(forKey: K.KEYgpF)!
+    }()
+    
+    
+    static var milesPerGallon : String = {
+        return UserDefaults.standard.string(forKey: K.KEYmpG)!
+    }()
     
     var rangePerFill: Double {
-        return Double(MapsManager.fuelInTank) * Double(MapsManager.milesPerGallon)
-    }                           //Average of 32 Miles per Gallon
-    
+        return Double(MapsManager.gallonPerFilling)! * Double(MapsManager.milesPerGallon)!
+    }
+
+    var pricePerMile: Double {
+        return (Double(MapsManager.gallonPerFilling)! * Double(MapsManager.pricePerGallon)!) / Double(rangePerFill)
+    }
+
     var pricePerFill: Double {
-        return MapsManager.fuelPrice * Double(MapsManager.fuelInTank)
-    }                           // fuelPrice * fuelInTank
-    
+        return Double(MapsManager.pricePerGallon)! * Double(MapsManager.gallonPerFilling)!
+    }
 
     func fetchDistance(_ origin: String) {
         let urlString = "\(K.URLfirst)\(origin)&destinations=\(MapsManager.destinationName)&key=\(K.apiKey)"
@@ -67,7 +82,7 @@ struct MapsManager {
                 return Int(Double(distanceMiles) / rangePerFill)
             }
             var costOfTrip: Double {
-                return Double(numberOfGasStops) * Double(pricePerFill)
+                return distanceMiles * pricePerMile
             }
             let model = MapsModel(lengthInMeters: distance, distanceMiles: distanceMiles, costOfTrip: costOfTrip, numberOfGasStops: numberOfGasStops)
             return model
