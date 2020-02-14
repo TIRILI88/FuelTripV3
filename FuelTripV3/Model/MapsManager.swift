@@ -30,6 +30,7 @@ struct MapsManager {
     
     
     static var milesPerGallon : String = {
+        UserDefaults.standard.register(defaults: [K.KEYmpG : "32"])
         return UserDefaults.standard.string(forKey: K.KEYmpG)!
     }()
     
