@@ -25,10 +25,7 @@ class SettingsViewController: UIViewController {
         gallonPerFillingTextField.delegate = self
         
         setLabelTextfield()
-        
-        milesPerGallonTextField.text = UserDefaults.standard.string(forKey: K.KEYmpG)
-        pricePerGallonTextField.text = UserDefaults.standard.string(forKey: K.KEYppG)
-        gallonPerFillingTextField.text = UserDefaults.standard.string(forKey: K.KEYgpF)
+        initialUserDefaults()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -40,6 +37,12 @@ class SettingsViewController: UIViewController {
     
     
 //MARK: - SetLabel + Textfield
+    
+    func initialUserDefaults() {
+        milesPerGallonTextField.text = UserDefaults.standard.string(forKey: K.KEYmpG)
+        pricePerGallonTextField.text = UserDefaults.standard.string(forKey: K.KEYppG)
+        gallonPerFillingTextField.text = UserDefaults.standard.string(forKey: K.KEYgpF)
+    }
     
     func setLabelTextfield() {
         popUpView.layer.cornerRadius = 10
