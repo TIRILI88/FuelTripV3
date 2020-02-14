@@ -51,6 +51,14 @@ class ViewController: UIViewController {
                textFieldDidEndEditing(destinationTextField)
            }
        }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToSettings" {
+            if destinationTextField.text == "" {
+                destinationTextField.text = "San Francisco"
+            }
+        }
+    }
 //MARK: - LocationManager Functions
     
     func setupLocationManager() {
@@ -159,7 +167,7 @@ class ViewController: UIViewController {
 //MARK: - Set UIView Elements
     
     func setImagesAndLabel() {
-        btnSettingsButton.imageEdgeInsets = UIEdgeInsets(top: 22, left: 27, bottom: 22, right: 27)
+        btnSettingsButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
         lblmilesLabel.layer.cornerRadius = 5.0
         lblGasStopLabel.layer.cornerRadius = 5.0
         lblMoneyForGasLabel.layer.cornerRadius = 5.0

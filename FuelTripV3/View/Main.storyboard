@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ScA-GP-zhg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ScA-GP-zhg">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -85,11 +85,6 @@
                                     <constraint firstItem="kHb-8T-2uo" firstAttribute="leading" secondItem="JUL-sU-hoZ" secondAttribute="trailing" constant="21" id="rAL-9D-c2M"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-04-NbX">
-                                <rect key="frame" x="364" y="162" width="30" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Symbol 147 – 2"/>
-                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qng-Ut-MgD">
                                 <rect key="frame" x="131.5" y="831" width="151" height="31"/>
                                 <segments>
@@ -106,6 +101,18 @@
                                 <state key="normal" image="Replay_Reverse-512"/>
                                 <connections>
                                     <action selector="goToAppleMapsPressed:" destination="ScA-GP-zhg" eventType="touchUpInside" id="vwh-7e-8tI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-04-NbX">
+                                <rect key="frame" x="369" y="163" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="Symbol 147 – 2">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18" scale="large"/>
+                                </state>
+                                <connections>
+                                    <segue destination="g53-Iq-Im2" kind="presentation" identifier="goToSettings" id="3x0-g3-OJk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -139,6 +146,122 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cg0-cM-UQh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-300" y="-154.01785714285714"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="JA9-r3-GlA">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="g53-Iq-Im2" customClass="SettingsViewController" customModule="FuelTripV3" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nT0-6Y-K5Z" userLabel="View">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTD-lm-17G">
+                                <rect key="frame" x="68" y="234" width="278" height="372"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="hT0-lC-rQe">
+                                        <rect key="frame" x="64" y="59" width="150" height="280.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="9S4-nd-bLv">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="56.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price per Gallon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2f-KB-zA6">
+                                                        <rect key="frame" x="17.5" y="0.0" width="115" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fOJ-bf-wkl">
+                                                        <rect key="frame" x="0.0" y="22.5" width="150" height="34"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="n4m-b7-H2D"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="A5O-G0-saa">
+                                                <rect key="frame" x="0.0" y="82.5" width="150" height="58.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles per Gallon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffQ-Xv-QP5">
+                                                        <rect key="frame" x="17" y="0.0" width="116.5" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mzn-SD-wj0">
+                                                        <rect key="frame" x="0.0" y="24.5" width="150" height="34"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="vpY-Uu-qAz"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="dN1-tP-C4p">
+                                                <rect key="frame" x="0.0" y="167" width="150" height="55.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallon per Filling" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhP-0V-oa4">
+                                                        <rect key="frame" x="15" y="0.0" width="120.5" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KjH-Yk-Gnb">
+                                                        <rect key="frame" x="0.0" y="21.5" width="150" height="34"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="vyY-gj-MNO"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcW-uX-tXn">
+                                                <rect key="frame" x="0.0" y="248.5" width="150" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="nrt-AK-GON"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="DONE">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="doneButtonPressed:" destination="g53-Iq-Im2" eventType="touchUpInside" id="lQ6-Tj-uMe"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.69769370719178081" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="hT0-lC-rQe" firstAttribute="centerX" secondItem="BTD-lm-17G" secondAttribute="centerX" id="n8b-gJ-sqw"/>
+                                    <constraint firstItem="hT0-lC-rQe" firstAttribute="centerX" secondItem="BTD-lm-17G" secondAttribute="centerX" id="njM-gD-ZAP"/>
+                                    <constraint firstItem="hT0-lC-rQe" firstAttribute="top" secondItem="BTD-lm-17G" secondAttribute="top" constant="59" id="t4f-tM-Ddv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.7131046660958904" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="BTD-lm-17G" firstAttribute="centerY" secondItem="nT0-6Y-K5Z" secondAttribute="centerY" constant="-28" id="dEm-RB-z58"/>
+                            <constraint firstItem="BTD-lm-17G" firstAttribute="centerX" secondItem="nT0-6Y-K5Z" secondAttribute="centerX" id="f5w-ez-3Vt"/>
+                            <constraint firstItem="BTD-lm-17G" firstAttribute="top" secondItem="iVc-qT-xNU" secondAttribute="top" constant="190" id="fys-HF-pQW"/>
+                            <constraint firstItem="BTD-lm-17G" firstAttribute="leading" secondItem="iVc-qT-xNU" secondAttribute="leading" constant="68" id="nOX-ds-KIO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iVc-qT-xNU"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnDoneButton" destination="TcW-uX-tXn" id="lYB-yc-mv4"/>
+                        <outlet property="gallonPerFillingTextField" destination="KjH-Yk-Gnb" id="Hcj-M7-JOa"/>
+                        <outlet property="milesPerGallonTextField" destination="mzn-SD-wj0" id="YW9-nk-73H"/>
+                        <outlet property="popUpView" destination="BTD-lm-17G" id="pRQ-me-G12"/>
+                        <outlet property="pricePerGallonTextField" destination="fOJ-bf-wkl" id="nHw-AB-af5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xj5-G5-Dsd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="453.62318840579712" y="-154.01785714285714"/>
         </scene>
     </scenes>
     <resources>
