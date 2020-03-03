@@ -49,6 +49,7 @@ class ViewController: UIViewController {
                locationManager.requestLocation()
                getCoordinate(destinationTextField.text!)
                textFieldDidEndEditing(destinationTextField)
+               UserDefaults.standard.synchronize()
            }
        }
     
@@ -115,7 +116,7 @@ class ViewController: UIViewController {
                 let destinationLocation = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
                 //print("getCoordinateFunc: lat: \(lat!) & lon: \(lon!)")
                 self.userDestination = destinationLocation
-                self.getDirections(with: destinationLocation )
+                self.getDirections(with: destinationLocation)
             }
         }
     }
@@ -150,9 +151,17 @@ class ViewController: UIViewController {
             //print("***error in directions calculation: \(String(describing: error))")
             guard let response = response else { return } //Show response not available in UIalert
             
+            guard let distance = response.routes.first?.distance else {
+                print("Error getting Distance from MapKit")
+                return
+            }
+            //print("\(distance * 0.000621371) Miles")
+            self.mapsManager.perfromRequest(distance)
+            
             for route in response.routes {
                 self.mapView.addOverlay(route.polyline)
                 self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                
             }
         }
     }
@@ -256,7 +265,6 @@ extension ViewController: CLLocationManagerDelegate {
                 if placemark.count > 0 {
                     let origin = String((placemark.first?.locality!)!)
                     self.userSourceString = origin
-                    self.mapsManager.fetchDistance(origin)
                     
                 }
             }
@@ -297,16 +305,13 @@ extension ViewController: MKMapViewDelegate {
     
     func openMapsWithDirection() {
         
-        
         let source = MKMapItem(placemark: MKPlacemark(coordinate: userSource!))
         source.name = userSourceString
-        
 
         let destination = MKMapItem(placemark: MKPlacemark(coordinate: userDestination!))
         destination.name = userDestinationString
          
         MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-        
     }
     
 }

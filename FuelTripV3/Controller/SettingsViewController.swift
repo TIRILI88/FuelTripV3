@@ -79,7 +79,7 @@ class SettingsViewController: UIViewController {
     @IBAction func doneButtonPressed(_ sender: UIButton) {
                 
         saveItems()
-                
+        UserDefaults.standard.synchronize()
         dismiss(animated: true, completion: nil)
    
     }

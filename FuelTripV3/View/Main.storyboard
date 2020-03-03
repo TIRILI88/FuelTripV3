@@ -176,7 +176,7 @@
                                                             <constraint firstAttribute="width" constant="150" id="n4m-b7-H2D"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -195,7 +195,7 @@
                                                             <constraint firstAttribute="width" constant="150" id="vpY-Uu-qAz"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -213,8 +213,8 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="vyY-gj-MNO"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
