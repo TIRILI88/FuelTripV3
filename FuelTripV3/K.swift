@@ -10,10 +10,6 @@ import Foundation
 
 struct K {
     
-    static let mapUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=New+York&destinations=Detroit&key="
-    static let URLfirst = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
-    static let apiKey = ""
-    
     static let KEYmpG = "MilesPerGallon"
     static let KEYppG = "PricePerGallon"
     static let KEYgpF = "GallonPerFilling"
