@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
@@ -117,6 +118,7 @@ class ViewController: UIViewController {
                 //print("getCoordinateFunc: lat: \(lat!) & lon: \(lon!)")
                 self.userDestination = destinationLocation
                 self.getDirections(with: destinationLocation)
+                self.showFinalAnnotation(destinationLocation)
             }
         }
     }
@@ -302,6 +304,13 @@ extension ViewController: MKMapViewDelegate {
         
         return renderer
     }
+    
+    func showFinalAnnotation(_ destination: CLLocationCoordinate2D) {
+          let annotation = MKPointAnnotation()
+          annotation.coordinate = destination
+          
+          mapView.addAnnotation(annotation)
+      }
     
     func openMapsWithDirection() {
         
